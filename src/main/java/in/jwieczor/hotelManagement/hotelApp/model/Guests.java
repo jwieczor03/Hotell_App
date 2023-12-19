@@ -1,12 +1,9 @@
 package in.jwieczor.hotelManagement.hotelApp.model;
 
-import jakarta.persistence.*;
-
-import java.util.Objects;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "Guests", schema = "dbo", catalog = "dbad_s485704")
-public class GuestsEntity {
+public class Guests {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -79,12 +76,28 @@ public class GuestsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GuestsEntity that = (GuestsEntity) o;
-        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(email, that.email) && Objects.equals(idCardSeries, that.idCardSeries);
+
+        Guests guests = (Guests) o;
+
+        if (id != guests.id) return false;
+        if (firstName != null ? !firstName.equals(guests.firstName) : guests.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(guests.lastName) : guests.lastName != null) return false;
+        if (phoneNumber != null ? !phoneNumber.equals(guests.phoneNumber) : guests.phoneNumber != null) return false;
+        if (email != null ? !email.equals(guests.email) : guests.email != null) return false;
+        if (idCardSeries != null ? !idCardSeries.equals(guests.idCardSeries) : guests.idCardSeries != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, phoneNumber, email, idCardSeries);
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (idCardSeries != null ? idCardSeries.hashCode() : 0);
+        return result;
     }
 }
